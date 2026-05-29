@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kantin Kejujuran — Kantin Sekolah Modern</title>
+  <meta name="description" content="Kantin Kejujuran — sajian segar, higienis, dan ramah pelajar di SMA Harapan Bangsa." />
+
+  <!-- Fonts: elegan & profesional -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+       Palet hangat-modern: krem lembut, hijau zaitun, terracotta.
+       Terinspirasi restoran modern (warm, editorial, premium).
+       ============================================================ */
+    :root {
+      --bg:          #f6f1e9;   /* krem lembut */
+      --bg-alt:      #ece4d6;   /* krem lebih dalam */
+      --surface:     #ffffff;
+      --ink:         #1f2a24;   /* hijau gelap, lebih hangat dari hitam */
+      --ink-soft:    #4b5650;
+      --muted:       #8a9189;
+      --line:        #e2d9c9;
+
+      --primary:     #2f4a3a;   /* hijau zaitun gelap — elegan */
+      --primary-2:   #3d5e4a;
+      --accent:      #c2562d;   /* terracotta hangat */
+      --accent-2:    #e07a4f;
+      --gold:        #b8893a;
+
+      --radius:      18px;
+      --radius-lg:   28px;
+      --shadow-sm:   0 1px 2px rgba(31,42,36,.06), 0 2px 8px rgba(31,42,36,.04);
+      --shadow:      0 10px 30px rgba(31,42,36,.08);
+      --shadow-lg:   0 25px 60px rgba(31,42,36,.18);
+      --ease:        cubic-bezier(.2,.7,.2,1);
+    }
+
+    /* ============================================================ RESET */
+    *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 16px;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: none; background: none; }
+
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* Eyebrow label kecil — bahasa desain editorial */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: .75rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--accent); font-weight: 600;
+    }
+    .eyebrow::before {
+      content: ""; width: 28px; height: 1px; background: var(--accent);
+    }
+
+    .h-display {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      letter-spacing: -.02em;
+      line-height: 1.05;
+    }
+
+    /* ============================================================ NAVBAR */
+    .navbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(246,241,233,.85);
+      backdrop-filter: saturate(140%) blur(12px);
+      -webkit-backdrop-filter: saturate(140%) blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 0;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Fraunces', serif; font-weight: 600;
+      font-size: 1.35rem; color: var(--ink);
+    }
+    .brand-mark {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--primary); color: #fff;
+      display: grid; place-items: center;
+      font-family: 'Fraunces', serif; font-weight: 700;
+      font-size: 1rem;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: .92rem; color: var(--ink-soft); font-weight: 500;
+      position: relative; padding: 4px 0;
+      transition: color .25s var(--ease);
+    }
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -4px;
+      height: 1px; background: var(--accent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .35s var(--ease);
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .nav-cta {
+      padding: 10px 18px; border-radius: 999px;
+      background: var(--ink); color: var(--bg);
+      font-size: .85rem; font-weight: 500;
+      transition: background .25s var(--ease), transform .25s var(--ease);
+    }
+    .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
+
+    /* ============================================================ BUTTONS */
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 30px; border-radius: 999px;
+      font-weight: 500; font-size: .95rem; letter-spacing: .01em;
+      transition: transform .25s var(--ease), box-shadow .25s var(--ease),
+                  background .25s var(--ease), color .25s var(--ease);
+    }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 10px 24px rgba(194,86,45,.35);
+    }
+    .btn-primary:hover {
+      background: var(--accent-2);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 32px rgba(194,86,45,.45);
+    }
+    .btn-ghost {
+      background: transparent; color: var(--ink);
+      border: 1px solid var(--ink);
+    }
+    .btn-ghost:hover { background: var(--ink); color: var(--bg); transform: translateY(-2px); }
+
+    .btn .arrow { transition: transform .3s var(--ease); }
+    .btn:hover .arrow { transform: translateX(4px); }
+
+    /* ============================================================ HERO */
+    .hero {
+      position: relative; overflow: hidden;
+      padding: 80px 0 100px;
+    }
+    .hero-grid {
+      display: grid; gap: 60px;
+      grid-template-columns: 1.05fr 1fr;
+      align-items: center;
+    }
+    .hero h1 {
+      font-size: clamp(2.6rem, 6vw, 4.6rem);
+      margin: 22px 0 24px;
+    }
+    .hero h1 em {
+      font-style: italic; color: var(--accent);
+      font-weight: 500;
+    }
+    .hero .lede {
+      font-size: 1.05rem; color: var(--ink-soft);
+      max-width: 520px; margin-bottom: 36px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .hero-meta {
+      margin-top: 50px; padding-top: 28px;
+      border-top: 1px solid var(--line);
+      display: flex; gap: 40px; flex-wrap: wrap;
+    }
+    .hero-meta div span {
+      display: block; font-family: 'Fraunces', serif;
+      font-size: 1.8rem; font-weight: 600; color: var(--primary);
+    }
+    .hero-meta div small {
+      font-size: .78rem; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* Hero visual: foto utama + foto kecil overlap */
+    .hero-visual { position: relative; aspect-ratio: 4/5; }
+    .hero-visual .photo-main {
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+    .hero-visual .photo-sub {
+      position: absolute; left: -40px; bottom: -40px;
+      width: 45%; aspect-ratio: 1/1; object-fit: cover;
+      border-radius: var(--radius);
+      border: 8px solid var(--bg);
+      box-shadow: var(--shadow);
+    }
+    .hero-badge {
+      position: absolute; top: 24px; right: 24px;
+      background: rgba(255,255,255,.95);
+      border-radius: 999px; padding: 10px 16px;
+      font-size: .8rem; font-weight: 600; color: var(--primary);
+      box-shadow: var(--shadow-sm);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .hero-badge::before {
+      content: ""; width: 8px; height: 8px; border-radius: 50%;
+      background: #2bb673;
+      box-shadow: 0 0 0 4px rgba(43,182,115,.18);
+    }
+
+    /* ============================================================ SECTION BASE */
+    section { padding: 110px 0; }
+    .section-head { text-align: center; max-width: 640px; margin: 0 auto 64px; }
+    .section-head h2 {
+      font-size: clamp(2rem, 4vw, 3rem); margin: 18px 0 14px;
+    }
+    .section-head p { color: var(--ink-soft); font-size: 1rem; }
+
+    /* ============================================================ MENU CARDS */
+    .menu { background: var(--bg); }
+    .menu-grid {
+      display: grid; gap: 28px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+      display: flex; flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+    }
+    .card-media {
+      position: relative; aspect-ratio: 4/3; overflow: hidden;
+    }
+    .card-media img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .8s var(--ease);
+    }
+    .card:hover .card-media img { transform: scale(1.08); }
+    .card-tag {
+      position: absolute; top: 14px; left: 14px;
+      background: rgba(255,255,255,.95); color: var(--ink);
+      font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+      font-weight: 600; padding: 6px 12px; border-radius: 999px;
+    }
+    .card-body { padding: 24px 26px 26px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .card-body h3 {
+      font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 600;
+      letter-spacing: -.01em;
+    }
+    .card-body p { color: var(--ink-soft); font-size: .9rem; }
+    .card-foot {
+      margin-top: auto; padding-top: 16px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--line);
+    }
+    .price {
+      font-family: 'Fraunces', serif; font-weight: 600;
+      font-size: 1.2rem; color: var(--accent);
+    }
+    .order-link {
+      font-size: .82rem; font-weight: 500; color: var(--ink);
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: color .25s var(--ease), gap .25s var(--ease);
+    }
+    .order-link:hover { color: var(--accent); gap: 10px; }
+
+    /* ============================================================ LIST MENU */
+    .menu-list {
+      margin-top: 70px;
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 40px 44px;
+      box-shadow: var(--shadow-sm);
+    }
+    .menu-list-head {
+      display: flex; justify-content: space-between; align-items: end;
+      margin-bottom: 28px; flex-wrap: wrap; gap: 16px;
+    }
+    .menu-list-head h3 {
+      font-family: 'Fraunces', serif; font-size: 1.6rem;
+    }
+    .menu-list-head .date {
+      font-size: .8rem; color: var(--muted);
+      letter-spacing: .14em; text-transform: uppercase;
+    }
+    .menu-list ul { list-style: none; columns: 2; column-gap: 60px; }
+    @media (max-width: 640px) { .menu-list ul { columns: 1; } }
+    .menu-list li {
+      display: flex; align-items: baseline; gap: 14px;
+      padding: 14px 0; border-bottom: 1px dotted var(--line);
+      break-inside: avoid;
+    }
+    .menu-list li:last-child { border-bottom: none; }
+    .menu-list .name { font-weight: 500; }
+    .menu-list .dots {
+      flex: 1; border-bottom: 1px dotted var(--line);
+      transform: translateY(-4px);
+    }
+    .menu-list .amt {
+      font-family: 'Fraunces', serif; font-weight: 600; color: var(--primary);
+    }
+
+    /* ============================================================ PRICE TABLE */
+    .pricing { background: var(--bg-alt); }
+    .table-wrap {
+      background: var(--surface); border-radius: var(--radius-lg);
+      overflow: hidden; box-shadow: var(--shadow);
+    }
+    .table-scroll { overflow-x: auto; }
+    table.price-table {
+      width: 100%; border-collapse: collapse;
+      min-width: 560px;
+    }
+    .price-table thead th {
+      background: var(--primary); color: #fff;
+      font-weight: 500; font-size: .78rem;
+      letter-spacing: .18em; text-transform: uppercase;
+      padding: 18px 24px; text-align: left;
+    }
+    .price-table tbody td {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--line);
+      font-size: .95rem;
+    }
+    .price-table tbody tr:last-child td { border-bottom: none; }
+    .price-table tbody tr { transition: background .25s var(--ease); }
+    .price-table tbody tr:hover { background: var(--bg); }
+    .price-table .num { color: var(--muted); font-family: 'Fraunces', serif; }
+    .price-table .cat {
+      display: inline-block; padding: 4px 12px; border-radius: 999px;
+      font-size: .72rem; font-weight: 600;
+      background: var(--bg-alt); color: var(--primary);
+    }
+    .price-table .cat.snack { background: #fde7d6; color: var(--accent); }
+    .price-table .cat.drink { background: #dde9e0; color: var(--primary); }
+    .price-table .amt-cell {
+      font-family: 'Fraunces', serif; font-weight: 600; color: var(--ink);
+      text-align: right;
+    }
+
+    /* ============================================================ CONTACT */
+    .contact { background: var(--ink); color: var(--bg); }
+    .contact .section-head h2 { color: var(--bg); }
+    .contact .section-head p { color: rgba(255,255,255,.7); }
+    .contact .eyebrow { color: var(--accent-2); }
+    .contact .eyebrow::before { background: var(--accent-2); }
+
+    .contact-grid {
+      display: grid; gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      margin-bottom: 50px;
+    }
+    .contact-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      transition: transform .3s var(--ease), background .3s var(--ease), border-color .3s var(--ease);
+    }
+    .contact-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.18);
+    }
+    .contact-card .icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--accent); color: #fff;
+      display: grid; place-items: center; margin-bottom: 18px;
+    }
+    .contact-card .icon svg { width: 22px; height: 22px; }
+    .contact-card h4 {
+      font-family: 'Fraunces', serif; font-size: 1.15rem;
+      margin-bottom: 4px; color: #fff;
+    }
+    .contact-card p, .contact-card a {
+      color: rgba(255,255,255,.72); font-size: .92rem;
+    }
+    .contact-card a:hover { color: var(--accent-2); }
+
+    .contact-cta {
+      text-align: center; padding: 40px;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .contact-cta h3 {
+      font-family: 'Fraunces', serif; font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: 20px;
+    }
+
+    /* ============================================================ FOOTER */
+    footer {
+      background: #181f1b; color: rgba(255,255,255,.6);
+      padding: 50px 0 30px;
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 20px;
+    }
+    .footer-inner .brand { color: #fff; }
+    .footer-inner .brand-mark { background: var(--accent); }
+    footer small { font-size: .82rem; }
+    footer a { color: rgba(255,255,255,.7); }
+    footer a:hover { color: var(--accent-2); }
+
+    /* ============================================================ RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero { padding: 50px 0 80px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 50px; }
+      .hero-visual { max-width: 480px; margin: 0 auto; }
+      .hero-visual .photo-sub { left: -20px; bottom: -20px; border-width: 6px; }
+      section { padding: 80px 0; }
+      .menu-list { padding: 28px 24px; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .container { padding: 0 20px; }
+      .hero-meta { gap: 28px; }
+      .hero-meta div span { font-size: 1.5rem; }
+      .section-head { margin-bottom: 44px; }
+    }
+
+    /* subtle entrance */
+    @keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+    .hero-content > * { animation: rise .8s var(--ease) both; }
+    .hero-content > *:nth-child(2) { animation-delay: .08s; }
+    .hero-content > *:nth-child(3) { animation-delay: .16s; }
+    .hero-content > *:nth-child(4) { animation-delay: .24s; }
+    .hero-content > *:nth-child(5) { animation-delay: .32s; }
+  </style>
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="brand">
+        <span class="brand-mark">K</span>
+        Kantin Kejujuran
+      </a>
+      <ul class="nav-links">
+        <li><a href="#home">Beranda</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#harga">Daftar Harga</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+      </ul>
+      <a href="https://wa.me/6287874104841" class="nav-cta">Pesan Sekarang</a>
+    </div>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <header class="hero" id="home">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <span class="eyebrow">Kantin Sekolah · Sejak. 2010</span>
+        <h1 class="h-display">
+          Menu <em>Sederhana,</em><br>
+          rasa luar biasa.
+        </h1>
+        <p class="lede">
+          Setiap hari, kami menyajikan menu segar racikan rumahan
+          yang higienis, bergizi, dan ramah di kantong pelajar. Dari dapur kami,
+          untuk semangat belajarmu.
+        </p>
+        <div class="hero-actions">
+          <a href="#menu" class="btn btn-primary">
+            Lihat Menu <span class="arrow">→</span>
+          </a>
+          <a href="https://wa.me/6287874104841" class="btn btn-ghost">
+            Pesan via WhatsApp
+          </a>
+        </div>
+        <div class="hero-meta">
+          <div><span>15+</span><small>Menu Pilihan</small></div>
+          <div><span>500+</span><small>Pelajar Setiap Hari</small></div>
+          <div><span>4.9★</span><small>Rating Siswa</small></div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <span class="hero-badge">Buka Sekarang</span>
+        <!-- Foto utama -->
+        <img class="photo-main"
+             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6pi5MR_rkM2HSGEhRsNSlZm57upmvhuaSGFQkS8aKLA&s=10"
+             alt="Hidangan sehat khas kantin">
+        <!-- Foto pendamping -->
+        <img class="photo-sub"
+             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlrwraeEhgf8o8o4WXmCAlA4HYhHh5Oc_n4mrnymkkxx7PvsqsE8cgRcBc&s=10"
+             alt="Pizza segar dari kantin">
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MENU ================= -->
+  <section class="menu" id="menu">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Menu Hari Ini</span>
+        <h2 class="h-display">Sajian Favorit Kantin</h2>
+        <p>Pilihan terbaik dari kantin kami.</p>
+      </div>
+
+      <div class="menu-grid">
+
+        <!-- 1 Nasi Goreng -->
+        <article class="card">
+          <div class="card-media">
+            <span class="card-tag">Best Seller</span>
+            <img src="https://www.dapurkobe.co.id/wp-content/uploads/nasi-goreng-saus-tiram.jpg" alt="Nasi Goreng Spesial">
+          </div>
+          <div class="card-body">
+            <h3>Nasi Goreng Spesial</h3>
+            <p>Nasi goreng dengan telur mata sapi, ayam suwir, dan kerupuk renyah.</p>
+            <div class="card-foot">
+              <span class="price">Rp 12.000</span>
+              <a href="https://wa.me/6287874104841" class="order-link">Pesan →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2 Mie Ayam -->
+        <article class="card">
+          <div class="card-media">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1mc7JJZOsUtO1lGPaYX98DgNIERXHaTn4ZU8qB_7py4iWofo601e3zglt&s=10" alt="Mie Ayam Bakso">
+          </div>
+          <div class="card-body">
+            <h3>Mie Ayam Bakso</h3>
+            <p>Mie kuning kenyal, ayam cincang gurih, dan bakso sapi pilihan.</p>
+            <div class="card-foot">
+              <span class="price">Rp 10.000</span>
+              <a href="https://wa.me/6287874104841" class="order-link">Pesan →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3 Soto -->
+        <article class="card">
+          <div class="card-media">
+            <img src="https://o-cdf.oramiland.com/unsafe/cnc-magazine.oramiland.com/parenting/original_images/soto_ayam_bumbu_kuning.jpg" alt="Soto Ayam">
+          </div>
+          <div class="card-body">
+            <h3>Soto Ayam</h3>
+            <p>Kuah bening rempah, suwiran ayam, dan taburan bawang goreng.</p>
+            <div class="card-foot">
+              <span class="price">Rp 11.000</span>
+              <a href="https://wa.me/6287874104841" class="order-link">Pesan →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4 Roti Bakar -->
+        <article class="card">
+          <div class="card-media">
+            <span class="card-tag">Snack</span>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzAgzIsthzljSp6Umbf5SFgQPawFic1FvF99A5sVsIq82z2_uDzFhllnU&s=10" alt="Roti Bakar Cokelat">
+          </div>
+          <div class="card-body">
+            <h3>Roti Bakar Cokelat</h3>
+            <p>Roti panggang renyah, lelehan cokelat premium, dan parutan keju.</p>
+            <div class="card-foot">
+              <span class="price">Rp 8.000</span>
+              <a href="https://wa.me/6287874104841" class="order-link">Pesan →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5 Jus Jeruk -->
+        <article class="card">
+          <div class="card-media">
+            <img src="https://www.jagel.id/api/listimage/v/Jus-Jeruk-Peras-0-7815e15953abe210.jpg" alt="Jus Jeruk Segar">
+          </div>
+          <div class="card-body">
+            <h3>Jus Jeruk Segar</h3>
+            <p>100% jeruk asli diperas hari itu juga — vitamin C melimpah.</p>
+            <div class="card-foot">
+              <span class="price">Rp 6.000</span>
+              <a href="https://wa.me/6287874104841" class="order-link">Pesan →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6 Es Teh -->
+        <article class="card">
+          <div class="card-media">
+            <img src="https://mediaaku.com/wp-content/uploads/2026/01/ES-TEH-MANIS.jpg" alt="Es Teh Manis">
+          </div>
+          <div class="card-body">
+            <h3>Es Teh Manis</h3>
+            <p>Teh seduhan klasik, manis pas — pendamping makan siang sempurna.</p>
+            <div class="card-foot">
+              <span class="price">Rp 3.000</span>
+              <a href="https://wa.me/6287874104841" class="order-link">Pesan →</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- ============== LIST MENU TAMBAHAN ============== -->
+      <div class="menu-list">
+        <div class="menu-list-head">
+          <h3>Menu Tambahan</h3>
+          <span class="date">Tersedia Setiap Hari</span>
+        </div>
+        <ul>
+          <li><span class="name">Bakso Kuah</span><span class="dots"></span><span class="amt">Rp 10.000</span></li>
+          <li><span class="name">Lontong Sayur</span><span class="dots"></span><span class="amt">Rp 9.000</span></li>
+          <li><span class="name">Pisang Cokelat</span><span class="dots"></span><span class="amt">Rp 4.000</span></li>
+          <li><span class="name">Paket Gorengan (5 pcs)</span><span class="dots"></span><span class="amt">Rp 5.000</span></li>
+          <li><span class="name">Es Jeruk Peras</span><span class="dots"></span><span class="amt">Rp 5.000</span></li>
+          <li><span class="name">Air Mineral 600ml</span><span class="dots"></span><span class="amt">Rp 2.000</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRICE TABLE ================= -->
+  <section class="pricing" id="harga">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Transparan & Terjangkau</span>
+        <h2 class="h-display">Daftar Harga Lengkap</h2>
+        <p>Beli disini udh pasti harga murah dan terjangkau.</p>
+      </div>
+
+      <div class="table-wrap">
+        <div class="table-scroll">
+          <table class="price-table">
+            <thead>
+              <tr>
+                <th style="width: 60px;">No</th>
+                <th>Nama Menu</th>
+                <th>Kategori</th>
+                <th style="text-align:right;">Harga</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="num">01</td><td>Nasi Goreng Spesial</td><td><span class="cat">Makanan</span></td><td class="amt-cell">Rp 12.000</td></tr>
+              <tr><td class="num">02</td><td>Mie Ayam Bakso</td><td><span class="cat">Makanan</span></td><td class="amt-cell">Rp 10.000</td></tr>
+              <tr><td class="num">03</td><td>Soto Ayam Kuning</td><td><span class="cat">Makanan</span></td><td class="amt-cell">Rp 11.000</td></tr>
+              <tr><td class="num">04</td><td>Lontong Sayur</td><td><span class="cat">Makanan</span></td><td class="amt-cell">Rp 9.000</td></tr>
+              <tr><td class="num">05</td><td>Roti Bakar Cokelat</td><td><span class="cat snack">Snack</span></td><td class="amt-cell">Rp 8.000</td></tr>
+              <tr><td class="num">06</td><td>Paket Gorengan</td><td><span class="cat snack">Snack</span></td><td class="amt-cell">Rp 5.000</td></tr>
+              <tr><td class="num">07</td><td>Pisang Cokelat</td><td><span class="cat snack">Snack</span></td><td class="amt-cell">Rp 4.000</td></tr>
+              <tr><td class="num">08</td><td>Es Teh Manis</td><td><span class="cat drink">Minuman</span></td><td class="amt-cell">Rp 3.000</td></tr>
+              <tr><td class="num">09</td><td>Jus Jeruk Segar</td><td><span class="cat drink">Minuman</span></td><td class="amt-cell">Rp 6.000</td></tr>
+              <tr><td class="num">10</td><td>Air Mineral 600ml</td><td><span class="cat drink">Minuman</span></td><td class="amt-cell">Rp 2.000</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section class="contact" id="kontak">
+    <div class="container">
+      <div class="section-head">
+        <span class="">Hubungi Kami</span>
+        <h2 class="h-display">Pesan Sekarang.</h2>
+        <p>Kami siap melayani pesananmu.</p>
+      </div>
+
+      <div class="contact-grid">
+        <a href="https://wa.me/6287874104841" class="contact-card" target="_blank" rel="noopener">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.9 11.9 0 0 0 3.2 19.3L2 22.5l3.4-1.1A11.9 11.9 0 1 0 20.5 3.5Zm-8.6 18.2a9.9 9.9 0 0 1-5-1.4l-.4-.2-2 .7.7-2-.3-.4a9.9 9.9 0 1 1 7 3.3Zm5.4-7.4c-.3-.2-1.7-.9-2-1s-.5-.1-.7.2-.8 1-1 1.2-.4.2-.7 0a8.1 8.1 0 0 1-2.3-1.5 9 9 0 0 1-1.6-2c-.2-.3 0-.5.1-.6l.5-.6.3-.4a.5.5 0 0 0 0-.4l-.9-2.2c-.2-.5-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.8.4 3.5 3.5 0 0 0-1.1 2.6c0 1.5 1.1 3 1.3 3.2s2.2 3.3 5.2 4.7a17 17 0 0 0 1.7.6 4.2 4.2 0 0 0 2 .2c.6-.1 1.7-.7 2-1.4a2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.6-.4Z"/></svg>
+          </div>
+          <h4>WhatsApp</h4>
+          <p>0878-7410-4841</p>
+        </a>
+
+        <a href="https://instagram.com/kantinceria" class="contact-card" target="_blank" rel="noopener">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <h4>Instagram</h4>
+          <p>@kantinkejujuran</p>
+        </a>
+
+        <div class="contact-card">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s-7-7.2-7-12a7 7 0 1 1 14 0c0 4.8-7 12-7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          </div>
+          <h4>Lokasi</h4>
+          <p>SMK PGRI 11 CILEDUG<br>LANTAI 2</p>
+        </div>
+
+        <div class="contact-card">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <h4>Jam Buka</h4>
+          <p>Senin – Sabtu<br>06.30 – 17.30 WIB</p>
+        </div>
+      </div>
+
+      <div class="contact-cta">
+        <h3 class="h-display">Pesan Online.</h3>
+        <a href="https://wa.me/6287874104841" class="btn btn-primary" target="_blank">
+          Pesan via WhatsApp <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="container footer-inner">
+      <a href="#home" class="brand">
+        <span class="brand-mark">K</span> Kantin Kejujuran
+      </a>
+      <small>&copy; 2026 Kantin Kejujuran · SMK PGRI 11 CILEDUG.</small>
+    </div>
+  </footer>
+
+</body>
+</html>
